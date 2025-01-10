@@ -2,15 +2,15 @@ package protokit_test
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/plugin"
+	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/stretchr/testify/suite"
 
 	"bytes"
 	"errors"
 	"testing"
 
-	"github.com/pseudomuto/protokit"
-	"github.com/pseudomuto/protokit/utils"
+	"github.com/moia-oss/protokit"
+	"github.com/moia-oss/protokit/utils"
 )
 
 type PluginTest struct {

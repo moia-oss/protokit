@@ -17,7 +17,7 @@ package main
 import (
     "github.com/golang/protobuf/proto"
     "github.com/golang/protobuf/protoc-gen-go/plugin"
-    "github.com/pseudomuto/protokit"
+    "github.com/moia-oss/protokit"
     _ "google.golang.org/genproto/googleapis/api/annotations" // Support (google.api.http) option (from google/api/annotations.proto).
 
     "log"
