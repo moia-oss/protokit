@@ -1,7 +1,6 @@
 .PHONY: bench release setup test
 
 TEST_PKGS = ./ ./utils
-TOOLPATH = $(abspath bin)
 VERSION = $(shell cat version.go | sed -n 's/.*const Version = "\(.*\)"/\1/p')
 
 GOVERAGE = github.com/haya14busa/goverage
