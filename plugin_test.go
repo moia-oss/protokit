@@ -1,6 +1,8 @@
 package protokit_test
 
 import (
+	"strings"
+
 	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/stretchr/testify/suite"
@@ -41,7 +43,8 @@ func (assert *PluginTest) TestRunPluginInputError() {
 	out := new(bytes.Buffer)
 
 	err := protokit.RunPluginWithIO(nil, in, out)
-	assert.EqualError(err, "proto: can't skip unknown wire type 6 for plugin_go.CodeGeneratorRequest")
+	assert.Error(err)
+	assert.True(strings.Contains(err.Error(), "cannot parse invalid wire-format data"))
 	assert.Empty(out)
 }
 

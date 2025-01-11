@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"os"
+
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 
@@ -8,12 +10,11 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 
-	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/dynamicpb"
 
 	"errors"
-	"io/ioutil"
 	"path/filepath"
 )
 
@@ -54,9 +55,10 @@ OUTERLOOP:
 // `--descriptor_set_out` flag with `protoc`.
 //
 // Example:
-//     protoc --descriptor_set_out=fileset.pb --include_imports --include_source_info ./booking.proto ./todo.proto
+//
+//	protoc --descriptor_set_out=fileset.pb --include_imports --include_source_info ./booking.proto ./todo.proto
 func LoadDescriptorSet(pathSegments ...string) (*descriptor.FileDescriptorSet, error) {
-	f, err := ioutil.ReadFile(filepath.Join(pathSegments...))
+	f, err := os.ReadFile(filepath.Join(pathSegments...))
 	if err != nil {
 		return nil, err
 	}
@@ -96,10 +98,10 @@ func LoadDescriptor(name string, pathSegments ...string) (*descriptor.FileDescri
 	return nil, errors.New("FileDescriptor not found")
 }
 
-func RegisterExtensions(fds *descriptor.FileDescriptorSet) []*descriptorpb.FileDescriptorProto{
+func RegisterExtensions(fds *descriptor.FileDescriptorSet) []*descriptorpb.FileDescriptorProto {
 	extTypes := new(protoregistry.Types)
 
-	files,err := protodesc.NewFiles(fds)
+	files, err := protodesc.NewFiles(fds)
 	if err != nil {
 		panic(err)
 	}
@@ -107,17 +109,17 @@ func RegisterExtensions(fds *descriptor.FileDescriptorSet) []*descriptorpb.FileD
 	files.RangeFiles(func(fileDescriptor protoreflect.FileDescriptor) bool {
 		registerAllExtensions(extTypes, fileDescriptor)
 		return true
-	} )
+	})
 
-	new_files := make([]*descriptorpb.FileDescriptorProto,0)
-	for _,fd := range fds.GetFile() {
+	new_files := make([]*descriptorpb.FileDescriptorProto, 0)
+	for _, fd := range fds.GetFile() {
 		b, _ := proto.Marshal(fd)
 		err := proto.UnmarshalOptions{Resolver: extTypes}.Unmarshal(b, fd)
 		if err != nil {
 			panic(err)
 		}
-		new_files = append(new_files,fd)
-	} 
+		new_files = append(new_files, fd)
+	}
 
 	return new_files
 }

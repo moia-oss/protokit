@@ -1,6 +1,7 @@
 package protokit_test
 
 import (
+	// "google.golang.org/protobuf/proto"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/stretchr/testify/suite"
@@ -9,6 +10,7 @@ import (
 
 	"github.com/moia-oss/protokit"
 	"github.com/moia-oss/protokit/utils"
+	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
 var (
@@ -100,13 +102,13 @@ func registerTestExtensions() {
 		Filename:      "extend.proto",
 	}
 
-	proto.RegisterExtension(E_ExtendFile)
-	proto.RegisterExtension(E_ExtendService)
-	proto.RegisterExtension(E_ExtendMethod)
-	proto.RegisterExtension(E_ExtendEnum)
-	proto.RegisterExtension(E_ExtendEnumValue)
-	proto.RegisterExtension(E_ExtendMessage)
-	proto.RegisterExtension(E_ExtendField)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendFile)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendService)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendMethod)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendEnum)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendEnumValue)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendMessage)
+	protoregistry.GlobalTypes.RegisterExtension(E_ExtendField)
 }
 
 func (assert *ParserTest) TestFileParsing() {

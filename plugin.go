@@ -8,7 +8,6 @@ import (
 
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 )
 
@@ -38,7 +37,7 @@ func RunPluginWithIO(p Plugin, r io.Reader, w io.Writer) error {
 }
 
 func readRequest(r io.Reader) (*plugin_go.CodeGeneratorRequest, error) {
-	data, err := ioutil.ReadAll(r)
+	data, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}

@@ -4,6 +4,9 @@ TEST_PKGS = ./ ./utils
 TOOLPATH = $(abspath bin)
 VERSION = $(shell cat version.go | sed -n 's/.*const Version = "\(.*\)"/\1/p')
 
+GOVERAGE = github.com/haya14busa/goverage
+GORELEASER = github.com/goreleaser/goreleaser
+
 BOLD = \033[1m
 CLEAR = \033[0m
 CYAN = \033[36m
@@ -23,40 +26,23 @@ test: fixtures/fileset.pb ## Run unit tests
 test/bench: ## Run benchmark tests
 	go test -bench=.
 
-test/ci: $(TOOLPATH)/goverage fixtures/fileset.pb test/bench ## Run CI tests include benchmarks with coverage
-	@bin/goverage -race -coverprofile=coverage.txt -covermode=atomic $(TEST_PKGS)
+test/ci: fixtures/fileset.pb test/bench ## Run CI tests include benchmarks with coverage
+	@go run $(GOVERAGE) -race -coverprofile=coverage.txt -covermode=atomic $(TEST_PKGS)
 
 ##@ Release
 release:
 	git tag v$(VERSION)
 	git push origin --tags
 
-release/snapshot: $(TOOLPATH)/goreleaser ## Create a local release snapshot
-	@bin/goreleaser --snapshot --rm-dist
+release/snapshot:
+	@go run $(GORELEASER) --snapshot --rm-dist
 
-release/validate: $(TOOLPATH)/goreleaser ## Run goreleaser checks
-	@bin/goreleaser check
+release/validate:
+	@go run $(GORELEASER) check
 
 ################################################################################
 # Indirect targets
 ################################################################################
-$(TOOLPATH)/goreleaser:
-	@echo "$(CYAN)Installing goreleaser v1.5.0...$(CLEAR)"
-	@TOOLPKG=github.com/goreleaser/goreleaser@v1.5.0 make build-tool
-
-$(TOOLPATH)/goverage:
-	@echo "$(CYAN)Installing goverage...$(CLEAR)"
-	@TOOLPKG=github.com/haya14busa/goverage make build-tool
-
-.PHONY: build-tool
-build-tool:
-	@{ \
-	TMP_DIR=$$(mktemp -d); \
-	cd $$TMP_DIR; \
-	go mod init tmp; \
-	GOBIN=$(TOOLPATH) go get $(TOOLPKG); \
-	rm -rf $$TMP_DIR; \
-	}
 
 fixtures/fileset.pb: fixtures/*.proto
 	$(info Generating fixtures...)

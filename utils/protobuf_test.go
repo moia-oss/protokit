@@ -1,6 +1,8 @@
 package utils_test
 
 import (
+	"strings"
+
 	"github.com/stretchr/testify/suite"
 
 	"testing"
@@ -66,7 +68,8 @@ func (assert *UtilsTest) TestLoadDescriptorSetFileNotFound() {
 func (assert *UtilsTest) TestLoadDescriptorSetMarshalError() {
 	set, err := utils.LoadDescriptorSet("..", "fixtures", "todo.proto")
 	assert.Nil(set)
-	assert.EqualError(err, "proto: can't skip unknown wire type 7 for descriptor.FileDescriptorSet")
+	assert.Error(err)
+	assert.True(strings.Contains(err.Error(), "cannot parse invalid wire-format data"))
 }
 
 func (assert *UtilsTest) TestLoadDescriptor() {
@@ -84,7 +87,8 @@ func (assert *UtilsTest) TestLoadDescriptorFileNotFound() {
 func (assert *UtilsTest) TestLoadDescriptorMarshalError() {
 	proto, err := utils.LoadDescriptor("todo.proto", "..", "fixtures", "todo.proto")
 	assert.Nil(proto)
-	assert.EqualError(err, "proto: can't skip unknown wire type 7 for descriptor.FileDescriptorSet")
+	assert.Error(err)
+	assert.True(strings.Contains(err.Error(), "cannot parse invalid wire-format data"))
 }
 
 func (assert *UtilsTest) TestLoadDescriptorDescriptorNotFound() {
