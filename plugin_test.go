@@ -3,9 +3,9 @@ package protokit_test
 import (
 	"strings"
 
-	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/stretchr/testify/suite"
+	"google.golang.org/protobuf/proto"
 
 	"bytes"
 	"errors"

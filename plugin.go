@@ -1,9 +1,9 @@
 package protokit
 
 import (
-	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/moia-oss/protokit/utils"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 
 	"fmt"

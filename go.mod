@@ -1,6 +1,8 @@
 module github.com/moia-oss/protokit
 
-go 1.17
+go 1.21
+
+toolchain go1.23.1
 
 require (
 	github.com/golang/protobuf v1.5.2
@@ -148,5 +150,5 @@ require (
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.32.0
 )
