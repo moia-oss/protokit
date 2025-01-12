@@ -2,8 +2,6 @@ module github.com/moia-oss/protokit
 
 go 1.21
 
-toolchain go1.23.1
-
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/goreleaser/goreleaser v1.5.0
