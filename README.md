@@ -1,9 +1,6 @@
 # protokit
 
-[![CI][github-svg]][github-ci]
-[![codecov][codecov-svg]][codecov-url]
-[![GoDoc][godoc-svg]][godoc-url]
-[![Go Report Card][goreport-svg]][goreport-url]
+*Forked from [pseudomoto/protokit](https://github.com/pseudomuto/protokit) and extended to support [Custom Options](https://protobuf.dev/programming-guides/proto3/#customoptions).*
 
 A starter kit for building protoc-plugins. Rather than write your own, you can just use an existing one.
 
@@ -57,11 +54,3 @@ Then invoke your plugin via `protoc`. For example (assuming your app is called `
 
 `protoc --plugin=protoc-gen-thingy=./thingy -I. --thingy_out=. rpc/*.proto`
 
-[github-svg]: https://github.com/pseudomuto/protokit/actions/workflows/ci.yaml/badge.svg?branch=master
-[github-ci]: https://github.com/pseudomuto/protokit/actions/workflows/ci.yaml
-[codecov-svg]: https://codecov.io/gh/pseudomuto/protokit/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/pseudomuto/protokit
-[godoc-svg]: https://godoc.org/github.com/pseudomuto/protokit?status.svg
-[godoc-url]: https://godoc.org/github.com/pseudomuto/protokit
-[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protokit
-[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protokit
