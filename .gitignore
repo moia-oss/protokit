@@ -2,4 +2,4 @@
 /coverage.txt
 /dist
 /.vscode
-vendor/
+/vendor

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/golang/protobuf/proto"
-	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/moia-oss/protokit"
 	"google.golang.org/genproto/googleapis/api/annotations"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/pluginpb"
 
 	"bytes"
 	"encoding/json"
@@ -20,7 +20,7 @@ func main() {
 
 type plugin struct{}
 
-func (p *plugin) Generate(req *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
+func (p *plugin) Generate(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
 	descriptors := protokit.ParseCodeGenRequest(req)
 	files := make([]*file, len(descriptors))
 
@@ -36,8 +36,8 @@ func (p *plugin) Generate(req *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeG
 		return nil, err
 	}
 
-	resp := new(plugin_go.CodeGeneratorResponse)
-	resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+	resp := new(pluginpb.CodeGeneratorResponse)
+	resp.File = append(resp.File, &pluginpb.CodeGeneratorResponse_File{
 		Name:    proto.String("output.json"),
 		Content: proto.String(buf.String()),
 	})

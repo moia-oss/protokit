@@ -4,7 +4,7 @@ TEST_PKGS = ./ ./utils
 VERSION = $(shell cat version.go | sed -n 's/.*const Version = "\(.*\)"/\1/p')
 
 GOVERAGE = github.com/haya14busa/goverage
-GORELEASER = github.com/goreleaser/goreleaser
+GORELEASER = github.com/goreleaser/goreleaser/v2
 
 BOLD = \033[1m
 CLEAR = \033[0m
@@ -34,7 +34,7 @@ release:
 	git push origin --tags
 
 release/snapshot:
-	@go run $(GORELEASER) --snapshot --rm-dist
+	@go run $(GORELEASER) --snapshot --clean
 
 release/validate:
 	@go run $(GORELEASER) check

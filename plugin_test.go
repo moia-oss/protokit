@@ -3,9 +3,9 @@ package protokit_test
 import (
 	"strings"
 
-	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/pluginpb"
 
 	"bytes"
 	"errors"
@@ -82,15 +82,15 @@ func (assert *PluginTest) TestRunPluginGeneratorError() {
 
 type ErrorPlugin struct{}
 
-func (ep *ErrorPlugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
+func (ep *ErrorPlugin) Generate(r *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
 	return nil, errors.New("generator error")
 }
 
 type OkPlugin struct{}
 
-func (op *OkPlugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
-	resp := new(plugin_go.CodeGeneratorResponse)
-	resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+func (op *OkPlugin) Generate(r *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
+	resp := new(pluginpb.CodeGeneratorResponse)
+	resp.File = append(resp.File, &pluginpb.CodeGeneratorResponse_File{
 		Name:    proto.String("myfile.out"),
 		Content: proto.String("someoutput"),
 	})
