@@ -1,13 +1,11 @@
 module github.com/moia-oss/protokit
 
-go 1.23.0
-
-toolchain go1.23.1
+go 1.25
 
 require (
 	github.com/goreleaser/goreleaser/v2 v2.5.1
 	github.com/haya14busa/goverage v0.0.0-20180129164344-eec3514a20b5
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	google.golang.org/genproto/googleapis/api v0.0.0-20241104194629-dd2ea8efbc28
 	google.golang.org/protobuf v1.36.2
 )
@@ -72,7 +70,7 @@ require (
 	github.com/goreleaser/chglog v0.6.1 // indirect
 	github.com/goreleaser/fileglob v1.3.0 // indirect
 	github.com/goreleaser/nfpm/v2 v2.41.1 // indirect
-	github.com/gorilla/websocket v1.5.1 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
@@ -93,7 +91,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
-	github.com/slack-go/slack v0.15.0 // indirect
+	github.com/slack-go/slack v0.23.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/ulikunitz/xz v0.5.12 // indirect
 	github.com/xanzy/go-gitlab v0.115.0 // indirect
